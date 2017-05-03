@@ -130,7 +130,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    return str.replace(value, "", "g");
 }
 
 /**
@@ -145,7 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    return str.slice(1, -1);
 }
 
 
@@ -174,7 +174,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    return str.split(';');
 }
 
 /**
@@ -201,7 +201,13 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    var horizantalLine = ('─').repeat(width-2);
+    var verticalLine = '│' + (' ').repeat(width-2) + '│' + '\n';
+    var leftTop = '┌';
+    var rightTop = '┐' + '\n';
+    var leftBottom = '└';
+    var rightBottom = '┘' + '\n';
+    return (leftTop + horizantalLine + rightTop + verticalLine.repeat(height - 2) + leftBottom + horizantalLine + rightBottom);
 }
 
 
@@ -221,7 +227,18 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    var result='';
+    for (var i = 0; i < str.length; i++) {
+        var code = str.charCodeAt(i);
+        if (((64 < code) && (code < 78)) || ((96 < code) && (code < 110))) {
+            code += 13;
+        } 
+        else if (((77 < code) && (code < 91)) || ((109 < code) && (code < 123))) {
+            code -= 13;
+        }
+        result = result + String.fromCharCode(code);
+    }
+    return result;
 }
 
 /**
@@ -238,7 +255,11 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    if ((typeof (value) == 'string') || (value instanceof String)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
@@ -267,7 +288,38 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    var ind0 = (value).charCodeAt(0);
+    var ind1 = (value).charCodeAt(1);
+    if (ind1 == 48) {
+        ind0 = 58;
+        ind1 = (value).charCodeAt(2);
+    }
+
+    if (ind0 < 65) {
+        ind0 = ind0 - 49;
+    }
+
+    switch (ind0) {
+        case 65: ind0 = 0
+        break
+        case 74: ind0 = 10
+        break
+        case 81: ind0 = 11
+        break
+        case 75: ind0 = 12
+        break
+    }
+    switch (ind1) {
+        case 9827: ind1 = 0
+        break
+        case 9830: ind1 = 13
+        break
+        case 9829: ind1 = 26
+        break
+        case 9824: ind1 = 39
+        break
+    }
+    return ind0 + ind1;
 }
 
 
