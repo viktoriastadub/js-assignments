@@ -25,8 +25,10 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.acos(x))
  *
  */
-function getComposition(f,g) {
-    throw new Error('Not implemented');
+function getComposition(f, g) {
+    return function (x) {
+        return f(g(x));
+    }
 }
 
 
@@ -47,7 +49,9 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    throw new Error('Not implemented');
+    return function (x) {
+        return Math.pow(x, exponent);
+    }
 }
 
 
@@ -65,7 +69,18 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    throw new Error('Not implemented');
+    var len = arguments.length;
+    var a = [];
+    for (var i = 0; i < len; i++) {
+        a[i] = arguments[i];
+    }
+    return function y(x) {
+        var sum = 0;
+        for (var i = 0; i < len; i++) {
+            sum += a[i] * Math.pow(x, len - i - 1);
+        }
+        return sum;
+    };
 }
 
 
@@ -84,7 +99,15 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+    var obj = {};
+    return function () {
+        var arg = Array.prototype.slice.call(arguments, 0);
+        var key = JSON.stringify(arg);
+        if (!(key in obj)) {
+            obj[key] = func();
+        };
+        return obj[key];
+    }
 }
 
 
@@ -150,7 +173,11 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+    var arg = Array.prototype.slice.call(arguments, 1);
+    return function () {
+        var argnext = Array.prototype.slice.call(arguments, 0);
+        return fn.apply(null, arg.concat(argnext));
+    };
 }
 
 
@@ -171,7 +198,10 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    throw new Error('Not implemented');
+    var count = startFrom;
+    return function () {
+        return count++;
+    };
 }
 
 
