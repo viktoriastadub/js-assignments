@@ -69,6 +69,7 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
+    // TODO: Could you please to format arguments to the mass with use more simple way?
     var len = arguments.length;
     var a = [];
     for (var i = 0; i < len; i++) {
