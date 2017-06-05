@@ -55,12 +55,12 @@ function parseDataFromIso8601(value) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
+// TODO: You don't need to write return false in the else condition
 function isLeapYear(date) {
     if (((date.getFullYear() % 4 == 0) && (date.getFullYear() % 100 != 0)) || (date.getFullYear() % 400 == 0)) {
         return true;
-    } else {
-        return false;
-    };
+    }
+    return false;
 }
 
 

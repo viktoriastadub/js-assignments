@@ -236,12 +236,12 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
+// TODO: You don't need to check isNaN on true. If condition check it.
 function toNumber(value, def) {
-    if (isNaN(value) == true) {
+    if (isNaN(value)) {
         return def;
-    } else {
-        return ~~value;
     }
+    return ~~value;
 }
 
 module.exports = {

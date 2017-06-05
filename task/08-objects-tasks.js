@@ -57,6 +57,7 @@ function getJSON(obj) {
  *    var r = fromJSON(Rectangle.prototype, '{"width":10, "height":20}');
  *
  */
+// TODO: This function doesn't pass test (Show please: Object.setPrototypeOf() function)
 function fromJSON(proto, json) {
     var Obj = function() {
         proto.constructor.call(this);

@@ -103,9 +103,11 @@ function memoize(func) {
     return function () {
         var arg = Array.prototype.slice.call(arguments, 0);
         var key = JSON.stringify(arg);
+        // TODO: If we use 'in' operator matches all object keys, including those in the object's prototype chain.
+        // TODO: Use obj.hasOwnProperty('key') to check an object's own keys
         if (!(key in obj)) {
             obj[key] = func();
-        };
+        }
         return obj[key];
     }
 }
@@ -127,7 +129,16 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+    return function () {
+        for (let i = 0; i <= attempts; i++) {
+            try {
+                console.log('try');
+                return func();
+            } catch (e) {
+                console.log('catch');
+            }
+        }
+    };
 }
 
 
@@ -198,6 +209,7 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
+    // TODO: It is not necessary to create variable in this case. You can use startFrom for it.
     var count = startFrom;
     return function () {
         return count++;
@@ -213,5 +225,5 @@ module.exports = {
     retry: retry,
     logger: logger,
     partialUsingArguments: partialUsingArguments,
-    getIdGeneratorFunction: getIdGeneratorFunction,
+    getIdGeneratorFunction: getIdGeneratorFunction
 };
